@@ -12,8 +12,6 @@ const publicDirectoryPath=path.join(__dirname,'../public')
 
 app.use(express.static(publicDirectoryPath))
 
-let count=0
-
 io.on('connection',(socket)=>{
     console.log('new connection')
 
@@ -22,6 +20,10 @@ io.on('connection',(socket)=>{
 
     socket.on('sendMessage',(message)=>{
         io.emit('message',message)
+    })
+
+    socket.on("sendLocation",({latitude,longitude})=>{
+        io.emit("message",`https://google.com/maps?q=${latitude},${longitude}`)
     })
 
     socket.on('disconnect',()=>{
