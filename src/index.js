@@ -16,15 +16,16 @@ let count=0
 
 io.on('connection',(socket)=>{
     console.log('new connection')
-    // socket.emit('countUpdated',count)
-    // socket.on('increment',()=>{
-    //     count++
-    //     io.emit('countUpdated',count)
-    // })
 
     socket.emit('message','Welcome!')
+    socket.broadcast.emit('message','new user joined')
+
     socket.on('sendMessage',(message)=>{
         io.emit('message',message)
+    })
+
+    socket.on('disconnect',()=>{
+        io.emit('message','user has left')
     })
 })
 
