@@ -10,7 +10,12 @@ socket.on('message',(message)=>{
 chatForm.addEventListener('submit',(e)=>{
     e.preventDefault()
     const message=e.target.elements.message
-    socket.emit('sendMessage',message.value)
+    socket.emit('sendMessage',message.value,(error)=>{
+        if(error){
+            return console.log(error)
+        }
+        console.log('message delivered')
+    })
 })
 
 sendLocation.addEventListener('click',()=>{
@@ -19,6 +24,11 @@ sendLocation.addEventListener('click',()=>{
     }
     navigator.geolocation.getCurrentPosition((position)=>{
         const {latitude,longitude}=position.coords
-        socket.emit("sendLocation",{latitude,longitude})
+        socket.emit("sendLocation",{latitude,longitude},(error)=>{
+            if(error){
+                return console.log(error)
+            }
+            console.log("Location delivered")
+        })
     })
 })
