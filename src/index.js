@@ -3,6 +3,7 @@ const path=require('path')
 const http=require('http')
 const socketio=require('socket.io')
 const Filter=require('bad-words')
+const {generateMessage}=require('./utils/messages')
 
 const app=express()
 const server=http.createServer(app)
@@ -16,15 +17,15 @@ app.use(express.static(publicDirectoryPath))
 io.on('connection',(socket)=>{
     console.log('new connection')
 
-    socket.emit('message','Welcome!')
-    socket.broadcast.emit('message','new user joined')
+    socket.emit('message',generateMessage('Welcome!'))
+    socket.broadcast.emit('message',generateMessage('new user joined'))
 
     socket.on('sendMessage',(message, callback)=>{
         const filter=new Filter()
         if(filter.isProfane(message)){
             return callback('profanity is not allowed')
         }
-        io.emit('message',message)
+        io.emit('message',generateMessage(message))
         callback()
     })
 
@@ -34,7 +35,7 @@ io.on('connection',(socket)=>{
     })
 
     socket.on('disconnect',()=>{
-        io.emit('message','user has left')
+        io.emit('message',generateMessage('user has left'))
     })
 })
 
