@@ -1,6 +1,6 @@
 # chat-application
 
-The application can be accessed on the web over [here weather-search-application.herokuapp.com](https://chatapplicationrooms.herokuapp.com/)<br/><br/>
+The application can be accessed on the web over [here chat room application](https://chatapplicationrooms.herokuapp.com/)<br/><br/>
 A nodejs and SocketIO backend run application that can be used to join different chat-rooms, send messages and send their locations!. It is hosted on heroku.<br/><br/>
 
 The project uses npm version 7.6.0 and Node.js v12.20.2.
